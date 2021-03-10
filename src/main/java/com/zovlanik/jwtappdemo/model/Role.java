@@ -8,7 +8,8 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 @Data
-public class Role extends BaseEntity{
+public class Role extends BaseEntity {
+
     @Column(name = "name")
     private String name;
 
@@ -18,8 +19,7 @@ public class Role extends BaseEntity{
     @Override
     public String toString() {
         return "Role{" +
-                "id='" + super.getId() + '\'' +
-                ", name=" + name +
-                '}';
+                "id: " + super.getId() + ", " +
+                "name: " + name + "}";
     }
 }

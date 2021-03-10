@@ -25,11 +25,9 @@ public class JwtUser implements UserDetails {
             String firstName,
             String lastName,
             String email,
-            String password,
-            Collection<? extends GrantedAuthority> authorities,
+            String password, Collection<? extends GrantedAuthority> authorities,
             boolean enabled,
             Date lastPasswordResetDate
-
     ) {
         this.id = id;
         this.username = username;
@@ -40,18 +38,11 @@ public class JwtUser implements UserDetails {
         this.authorities = authorities;
         this.enabled = enabled;
         this.lastPasswordResetDate = lastPasswordResetDate;
-
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
     }
 
     @JsonIgnore
-    @Override
-    public String getPassword() {
-        return password;
+    public Long getId() {
+        return id;
     }
 
     @Override
@@ -77,25 +68,36 @@ public class JwtUser implements UserDetails {
         return true;
     }
 
+    public String getFirstname() {
+        return firstName;
+    }
+
+    public String getLastname() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 
     @JsonIgnore
-    public Date getLastPasswordResetDate(){
+    public Date getLastPasswordResetDate() {
         return lastPasswordResetDate;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
     }
 }

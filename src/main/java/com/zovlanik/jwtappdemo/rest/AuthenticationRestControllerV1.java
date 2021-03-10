@@ -21,7 +21,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping(value = "api/v1/auth/")
+@RequestMapping(value = "/api/v1/auth/")
 public class AuthenticationRestControllerV1 {
 
     private final AuthenticationManager authenticationManager;
@@ -37,7 +37,7 @@ public class AuthenticationRestControllerV1 {
         this.userService = userService;
     }
 
-
+    @PostMapping("login")
     public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             String username = requestDto.getUsername();
@@ -45,7 +45,7 @@ public class AuthenticationRestControllerV1 {
             User user = userService.findByUsername(username);
 
             if (user == null) {
-                throw new UsernameNotFoundException("User with username: " + username + " not found.");
+                throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
 
             String token = jwtTokenProvider.createToken(username, user.getRoles());
@@ -54,11 +54,9 @@ public class AuthenticationRestControllerV1 {
             response.put("username", username);
             response.put("token", token);
 
-
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
-
     }
 }
